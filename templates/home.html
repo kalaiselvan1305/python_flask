@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>
+            Flask CRUD
+        </title>
+        <!-- <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}" -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Flask Crud Operation</h1>
+            <h4>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </h4>
+            <p><a class="btn btn-success float-right" href="{{url_for('addUsers')}}">Add User</a></p>
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>AGE</th>
+                    <th>CITY</th>
+                    <th>EDIT</th>
+                    <th>DELETE</th>
+                </tr>
+                {% for data in datas %}
+                <tr>
+                    <td>{{data.id}}</td>
+                    <td>{{data.name}}</td>
+                    <td>{{data.age}}</td>
+                    <td>{{data.city}}</td>
+                    <td><a class="label label-warning" href="{{url_for('editUser', id=data.id)}}">Edit</a></td>
+                    <td><a class="label label-danger" onclick="return confirm('Are you sure to delete?');" href="{{url_for('deleteUser', id=data.id)}}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>
